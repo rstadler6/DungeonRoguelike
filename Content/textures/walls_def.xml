@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas>
+  <Texture>textures/walls_set</Texture>
+  <Regions>
+    <Region name="wall_corner_bottom_right" x="96" y="0" width="32" height="32" />
+    <Region name="wall_corner_bottom_left" x="192" y="0" width="32" height="32" />
+    
+    <Region name="wall_horizontal" x="0" y="32" width="32" height="32" />
+    <Region name="wall_vertical" x="192" y="32" width="32" height="32" />
+    <Region name="wall_corner_top_right" x="224" y="32" width="32" height="32" />
+    
+    <Region name="wall_corner_top_left" x="64" y="64" width="32" height="32" />
+  </Regions>
+</TextureAtlas>

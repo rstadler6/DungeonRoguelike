@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas>
+  <Texture>textures/floors_set</Texture>
+  <Regions>
+    <Region name="floor" x="32" y="0" width="32" height="32" />
+    <Region name="floor_top" x="64" y="0" width="32" height="32" />
+    <Region name="floor_left" x="96" y="0" width="32" height="32" />
+    <Region name="floor_corner_top_left" x="128" y="0" width="32" height="32" />
+    
+    <Region name="floor_right" x="0" y="32" width="32" height="32" />
+    <Region name="floor_corner_top_right" x="32" y="32" width="32" height="32" />
+    <Region name="floor_corridor" x="64" y="32" width="32" height="32" />
+    <Region name="floor_corridor_end_top" x="96" y="32" width="32" height="32" />
+    <Region name="floor_bottom" x="128" y="32" width="32" height="32" />
+    
+    <Region name="floor_corridor_side" x="0" y="64" width="32" height="32" />
+    <Region name="floor_corner_bottom_left" x="32" y="64" width="32" height="32" />
+    <Region name="floor_corridor_side_end_left" x="64" y="64" width="32" height="32" />
+    <Region name="floor_corner_bottom_right" x="96" y="64" width="32" height="32" />
+    <Region name="floor_corridor_side_end_right" x="128" y="64" width="32" height="32" />
+    
+    <Region name="floor_corridor_end_bottom" x="0" y="96" width="32" height="32" />
+    <Region name="floor_surrounded" x="32" y="96" width="32" height="32" />
+  </Regions>
+</TextureAtlas>
