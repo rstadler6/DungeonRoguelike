@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace DungeonRoguelike.Combat;
+namespace DungeonRoguelike;
 
 public class CollisionDetector
 {
