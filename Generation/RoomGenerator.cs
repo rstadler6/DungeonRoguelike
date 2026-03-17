@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+
 namespace DungeonRoguelike.Generation;
 
 public class RoomGenerator
@@ -10,7 +12,7 @@ public class RoomGenerator
         {
             for (int y = 0; y < height; y++)
             {
-                tiles[x, y] = new Tile { Type = DetermineTileType(width, height, x, y) };
+                tiles[x, y] = new Tile(DetermineTileType(width, height, x, y), new Vector2(x, y));
             }
         }
 

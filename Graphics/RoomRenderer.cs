@@ -6,23 +6,21 @@ namespace DungeonRoguelike.Graphics;
 public class RoomRenderer
 {
     private readonly Point _cellSize;
-    private readonly float _scale;
 
-    public RoomRenderer(Point cellSize, float scale = 1f)
+    public RoomRenderer(Point cellSize)
     {
         _cellSize = cellSize;
-        _scale = scale;
     }
 
-    public void Draw(SpriteBatch spriteBatch, Room room, Point worldOffset)
+    public void Draw(SpriteBatch spriteBatch, Room room, Point worldOffset, GameTime gameTime)
     {
-        Draw(spriteBatch, room, worldOffset, Color.White);
+        Draw(spriteBatch, room, worldOffset, Color.White, gameTime);
     }
 
-    public void Draw(SpriteBatch spriteBatch, Room room, Point worldOffset, Color tint)
+    public void Draw(SpriteBatch spriteBatch, Room room, Point worldOffset, Color tint, GameTime gameTime)
     {
-        int scaledCellWidth = (int)(_cellSize.X * _scale);
-        int scaledCellHeight = (int)(_cellSize.Y * _scale);
+        int cellWidth = _cellSize.X;
+        int cellHeight = _cellSize.Y;
 
         for (int y = 0; y < room.Height; y++)
         {
@@ -31,13 +29,15 @@ public class RoomRenderer
                 Tile tile = room.GetTile(x, y);
                 TextureRegion region = AssetManager.GetRegion(tile.Type);
 
-                int drawWidth = (int)(region.Width * _scale);
-                int drawHeight = (int)(region.Height * _scale);
-                int drawX = worldOffset.X + (x * scaledCellWidth);
-                int drawY = worldOffset.Y + (y * scaledCellHeight) + (scaledCellHeight - drawHeight);
+                var highlight = tile.Highlight + 2 > gameTime.TotalGameTime.Seconds;
+                
+                int drawWidth = region.Width;
+                int drawHeight = region.Height;
+                int drawX = worldOffset.X + (x * cellWidth);
+                int drawY = worldOffset.Y + (y * cellHeight) + (cellHeight - drawHeight);
 
                 var destination = new Rectangle(drawX, drawY, drawWidth, drawHeight);
-                spriteBatch.Draw(region.Texture, destination, region.SourceRectangle, tint);
+                spriteBatch.Draw(region.Texture, destination, region.SourceRectangle, highlight ? Color.Red : tint);
             }
         }
     }

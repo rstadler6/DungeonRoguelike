@@ -15,21 +15,30 @@ public class Game1 : Game
     private Room _room;
     private RoomRenderer _roomRenderer;
     private readonly InputManager _inputManager = new InputManager();
-    private readonly MovementManager _movementManager; 
+    private MovementManager _movementManager; 
     private readonly Character _character;
+
+    private readonly Vector2 InitialCharacterPosition = new Vector2(300, 300);
+    private float _zoom = 1f; // Camera zoom level
     
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        _movementManager = new MovementManager(_inputManager);
-        _character = new Character(new Vector2(100, 100));
+        
+        // Set window size here
+        _graphics.PreferredBackBufferWidth = 1280;
+        _graphics.PreferredBackBufferHeight = 720;
+        _graphics.ApplyChanges();
+        
+        _character = new Character(InitialCharacterPosition);
     }
 
     protected override void Initialize()
     {
-
+        _room = _roomGenerator.GenerateRoom(30, 20);
+        _movementManager = new MovementManager(_inputManager, _room);
         base.Initialize();
     }
 
@@ -38,9 +47,8 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         AssetManager.LoadContent(Content);
-
-        _room = _roomGenerator.GenerateRoom(30, 20);
-        _roomRenderer = new RoomRenderer(new Point(16, 16), 2f);
+        
+        _roomRenderer = new RoomRenderer(new Point(32, 32));
     }
 
     protected override void Update(GameTime gameTime)
@@ -49,9 +57,17 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        var keyboardState = Keyboard.GetState();
+        
+        // Zoom controls: + and - keys
+        if (keyboardState.IsKeyDown(Keys.Add) || keyboardState.IsKeyDown(Keys.OemPlus))
+            _zoom = MathHelper.Clamp(_zoom + 0.1f, 0.5f, 3f);
+        if (keyboardState.IsKeyDown(Keys.Subtract) || keyboardState.IsKeyDown(Keys.OemMinus))
+            _zoom = MathHelper.Clamp(_zoom - 0.1f, 0.5f, 3f);
+
         _inputManager.Update(gameTime);
         
-        var direction = _movementManager.GetDirection();
+        var direction = _movementManager.GetDirection(_character.Position, gameTime);
         _character.Move(direction);
         
         base.Update(gameTime);
@@ -61,17 +77,34 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        _roomRenderer.Draw(_spriteBatch, _room, _character.Position.ToPoint());
-        DrawCharacter();
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: GetCameraTransform());
+
+        _roomRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime);
+        DrawCharacter(_character.Position);
+
         _spriteBatch.End();
 
         base.Draw(gameTime);
     }
-    
-    private void DrawCharacter()
+
+    private Matrix GetCameraTransform()
+    {
+        var cameraAnchor = GetCameraAnchor();
+
+        return Matrix.CreateTranslation(-_character.Position.X, -_character.Position.Y, 0f)
+               * Matrix.CreateScale(_zoom, _zoom, 1f)
+               * Matrix.CreateTranslation(cameraAnchor.X, cameraAnchor.Y, 0f);
+    }
+
+    private Vector2 GetCameraAnchor()
+    {
+        var viewport = GraphicsDevice.Viewport;
+        return new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
+    }
+
+    private void DrawCharacter(Vector2 worldPosition)
     {
         var region = AssetManager.GetRegion(_character.Texture);
-        _spriteBatch.Draw(region.Texture, new Vector2(100, 100), region.SourceRectangle, Color.White);
+        _spriteBatch.Draw(region.Texture, worldPosition, region.SourceRectangle, Color.White);
     }
 }

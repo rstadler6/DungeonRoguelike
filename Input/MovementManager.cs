@@ -8,12 +8,15 @@ public class MovementManager
     private readonly InputManager _inputManager;
     private const float MOVEMENT_SPEED = 4.0f;
 
-    public MovementManager(InputManager inputManager)
+    public Room CurrentRoom { get; set; }
+    
+    public MovementManager(InputManager inputManager, Room room)
     {
         _inputManager = inputManager;
+        CurrentRoom = room;
     }
     
-    public Vector2 GetDirection()
+    public Vector2 GetDirection(Vector2 currentPosition, GameTime gameTime)
     {
         Vector2 direction = Vector2.Zero;
 
@@ -26,6 +29,8 @@ public class MovementManager
         if (_inputManager.Keyboard.IsKeyDown(Keys.L))
             direction.X += MOVEMENT_SPEED;
         
-        return direction;
+        return CurrentRoom.CheckDirectionCollisionAndAdjust(direction, currentPosition, gameTime);
     }
+    
+    // TODO make diagonal movement same as normal
 }
