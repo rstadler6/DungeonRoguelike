@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using DungeonRoguelike.Combat;
 using DungeonRoguelike.Generation;
 using DungeonRoguelike.Graphics;
 using DungeonRoguelike.Input;
@@ -15,7 +16,8 @@ public class Game1 : Game
     private Room _room;
     private RoomRenderer _roomRenderer;
     private readonly InputManager _inputManager = new InputManager();
-    private MovementManager _movementManager; 
+    private MovementManager _movementManager;
+    private readonly CollisionDetector _collisionDetector = new CollisionDetector();
     private readonly Character _character;
 
     private readonly Vector2 InitialCharacterPosition = new Vector2(300, 300);
@@ -38,7 +40,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         _room = _roomGenerator.GenerateRoom(30, 20);
-        _movementManager = new MovementManager(_inputManager, _room);
+        _movementManager = new MovementManager(_inputManager);
         base.Initialize();
     }
 
@@ -67,8 +69,9 @@ public class Game1 : Game
 
         _inputManager.Update(gameTime);
         
-        var direction = _movementManager.GetDirection(_character.Position, gameTime);
-        _character.Move(direction);
+        var desiredMovement = _movementManager.GetDirection();
+        var resolvedMovement = _collisionDetector.ResolveMovement(_room, _character, desiredMovement, gameTime);
+        _character.Move(resolvedMovement);
         
         base.Update(gameTime);
     }
