@@ -14,7 +14,8 @@ public class CollisionDetector
 
         return resolvedPosition - startPosition;
     }
-
+    
+    // TODO: consider GameTime?
     private float ResolveAxis(Room room, Character character, Vector2 currentPosition, float delta, bool isHorizontal, GameTime gameTime)
     {
         if (delta == 0f)

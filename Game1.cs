@@ -12,16 +12,18 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private readonly RoomGenerator _roomGenerator = new RoomGenerator();
+    private readonly RoomGenerator _roomGenerator = new();
     private Room _room;
     private RoomRenderer _roomRenderer;
-    private readonly InputManager _inputManager = new InputManager();
+    private EnemyRenderer _enemyRenderer = new();
+    private readonly InputManager _inputManager = new();
     private MovementManager _movementManager;
-    private readonly CollisionDetector _collisionDetector = new CollisionDetector();
+    private readonly CollisionDetector _collisionDetector = new();
     private readonly Character _character;
+    private readonly EnemyManager _enemyManager = new();
 
-    private readonly Vector2 InitialCharacterPosition = new Vector2(300, 300);
-    private float _zoom = 1f; // Camera zoom level
+    private readonly Vector2 InitialCharacterPosition = new(300, 300);
+    private float _zoom = 2f; // Camera zoom level
     
     public Game1()
     {
@@ -73,6 +75,8 @@ public class Game1 : Game
         var resolvedMovement = _collisionDetector.ResolveMovement(_room, _character, desiredMovement, gameTime);
         _character.Move(resolvedMovement);
         
+        _enemyManager.Update(_character, _room, gameTime);
+        
         base.Update(gameTime);
     }
 
@@ -84,6 +88,7 @@ public class Game1 : Game
 
         _roomRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime);
         DrawCharacter(_character.Position);
+        _enemyRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _enemyManager.Enemies);
 
         _spriteBatch.End();
 
