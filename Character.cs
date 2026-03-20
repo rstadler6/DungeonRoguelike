@@ -2,14 +2,10 @@ using Microsoft.Xna.Framework;
 
 namespace DungeonRoguelike;
 
-public class Character
+public class Character : Entity
 {
     private static readonly Point CollisionSize = new(28, 28);
-
-    public Vector2 Position { get; private set; }
-
-    public Rectangle CollisionBounds => GetCollisionBoundsAt(Position);
-
+    
     public string Texture => "knight_m"; // TODO change to character type, etc
 
     public Character(Vector2 initialPosition)
@@ -21,8 +17,10 @@ public class Character
     {
         Position += direction;
     }
+    
+    protected override Point GetCollisionSize() => new(16, 16);
 
-    public Rectangle GetCollisionBoundsAt(Vector2 position)
+    public Rectangle GetCollisionBoundsAtPosition(Vector2 position)
     {
         return new Rectangle((int)position.X, (int)position.Y, CollisionSize.X, CollisionSize.Y);
     }

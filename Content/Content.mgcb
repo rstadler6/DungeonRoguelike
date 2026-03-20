@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin textures/0x72_16x16DungeonTileset.v5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/0x72_16x16DungeonTileset.v5.png
+
 #begin textures/0x72_DungeonTilesetII_v1.7.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -49,11 +61,41 @@
 /processorParam:TextureFormat=Color
 /build:textures/atlas_walls_high-16x32.png
 
-#begin textures/floors_def.xml
-/copy:textures/floors_def.xml
+#begin textures/blue_coin_def.xml
+/copy:textures/blue_coin_def.xml
+
+#begin textures/blue_coin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/blue_coin.png
+
+#begin textures/dungeon_def.xml
+/copy:textures/dungeon_def.xml
 
 #begin textures/dungeonII_def.xml
 /copy:textures/dungeonII_def.xml
+
+#begin textures/floors_def.xml
+/copy:textures/floors_def.xml
+
+#begin textures/floors_set.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/floors_set.png
 
 #begin textures/walls_def.xml
 /copy:textures/walls_def.xml
@@ -69,17 +111,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/walls_set.png
-
-#begin textures/floors_set.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:textures/floors_set.png
-
 

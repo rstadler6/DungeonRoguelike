@@ -78,6 +78,12 @@ public static class AssetManager
             ["wogol"] = "wogol_idle_anim_f0",
             ["zombie"] = "zombie_anim_f10"
         };
+    
+    private static readonly IReadOnlyDictionary<string, string> BlueCoinRegionNames =
+        new Dictionary<string, string>
+        {
+            ["blue_coin"] = "blue_coin"
+        };
 
     public static void LoadContent(ContentManager content)
     {
@@ -87,10 +93,12 @@ public static class AssetManager
         TextureAtlas floorsAtlas = TextureAtlas.FromFile(content, "textures/floors_def.xml");
         TextureAtlas wallsAtlas = TextureAtlas.FromFile(content, "textures/walls_def.xml");
         TextureAtlas dungeonsIIAtlas = TextureAtlas.FromFile(content, "textures/dungeonII_def.xml");
+        TextureAtlas blueCoinAtlas = TextureAtlas.FromFile(content, "textures/blue_coin_def.xml");
 
         LoadAtlasRegions(floorsAtlas, FloorRegionNames);
         LoadAtlasRegions(wallsAtlas, WallRegionNames);
         LoadAtlasRegions(dungeonsIIAtlas, CharacterEnemyIdleRegionNames);
+        LoadAtlasRegions(blueCoinAtlas, BlueCoinRegionNames);
         
         _tileRegions[TileType.Door] = floorsAtlas.GetRegion("floor");
 

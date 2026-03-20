@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace DungeonRoguelike.Combat;
@@ -8,14 +9,23 @@ public class EnemyManager
 {
     private List<Enemy> enemies = new();
     private TimeSpan lastSpawnTime = TimeSpan.Zero;
-    private readonly TimeSpan spawnInterval = TimeSpan.FromSeconds(5);
+    private readonly TimeSpan spawnInterval = TimeSpan.FromSeconds(0.5);
 
     public IReadOnlyCollection<Enemy> Enemies => enemies.AsReadOnly();
 
     public void Update(Character character, Room currentRoom, GameTime gameTime)
     {
         SpawnEnemy(character.Position, currentRoom, gameTime);
-        enemies.ForEach(e => e.Move(character));
+        
+        foreach (var enemy in enemies.ToList())
+        {
+            enemy.Move(character);
+
+            if (enemy.IsColliding(character))
+            {
+                enemies.Remove(enemy);
+            }
+        }
     }
 
     private void SpawnEnemy(Vector2 characterPosition, Room currentRoom, GameTime gameTime)
@@ -36,7 +46,7 @@ public class EnemyManager
         {
            spawnPosition.X = random.Next(0, room.Width * Room.TileSize); 
            spawnPosition.Y = random.Next(0, room.Height * Room.TileSize); 
-        } while((characterPosition - spawnPosition).Length() < 40);
+        } while(Vector2.DistanceSquared(characterPosition, spawnPosition) < 2000);
 
         return spawnPosition;
     }

@@ -27,7 +27,7 @@ public class CollisionDetector
             ? new Vector2(candidateValue, currentPosition.Y)
             : new Vector2(currentPosition.X, candidateValue);
 
-        var candidateBounds = character.GetCollisionBoundsAt(candidatePosition);
+        var candidateBounds = character.GetCollisionBoundsAtPosition(candidatePosition);
 
         foreach (var (tileX, tileY, tile) in room.GetTilesInBounds(candidateBounds))
         {
@@ -47,7 +47,7 @@ public class CollisionDetector
                 else
                     candidateValue = tileBounds.Right;
 
-                candidateBounds = character.GetCollisionBoundsAt(new Vector2(candidateValue, currentPosition.Y));
+                candidateBounds = character.GetCollisionBoundsAtPosition(new Vector2(candidateValue, currentPosition.Y));
             }
             else
             {
@@ -56,7 +56,7 @@ public class CollisionDetector
                 else
                     candidateValue = tileBounds.Bottom;
 
-                candidateBounds = character.GetCollisionBoundsAt(new Vector2(currentPosition.X, candidateValue));
+                candidateBounds = character.GetCollisionBoundsAtPosition(new Vector2(currentPosition.X, candidateValue));
             }
         }
 
