@@ -5,9 +5,10 @@ namespace DungeonRoguelike.Combat;
 public class SimpleHomingBehaviour : IEnemyBehaviour
 {
     // TODO: consider GameTime?
-    public Vector2 GetMovement(Enemy enemy, Character character)
+    // TODO: targets other than the player? xp stealing?
+    public Vector2 GetMovement(Enemy enemy, Entity target)
     {
-        var direction = character.Position - enemy.Position;
+        var direction = target.Position - enemy.Position;
         if (direction.Length() > 0)
             direction.Normalize();
         
