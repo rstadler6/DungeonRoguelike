@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas>
-  <Texture>textures/blue_coin_def</Texture>
+  <Texture>textures/blue_coin</Texture>
   <Regions>
     <Region name="blue_coin" x="0" y="0" width="16" height="16" />
   </Regions>
