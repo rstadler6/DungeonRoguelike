@@ -27,6 +27,11 @@ public class EnemyManager
             }
         }
     }
+    
+    public IReadOnlyCollection<Enemy> GetIntersectingEnemies(Rectangle area)
+    {
+        return enemies.Where(e => e.CollisionBounds.Intersects(area)).ToList();
+    }
 
     private void SpawnEnemy(Vector2 characterPosition, Room currentRoom, GameTime gameTime)
     {
