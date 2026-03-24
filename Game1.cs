@@ -5,6 +5,8 @@ using DungeonRoguelike.Combat;
 using DungeonRoguelike.Generation;
 using DungeonRoguelike.Graphics;
 using DungeonRoguelike.Input;
+using Gum.Forms;
+using MonoGameGum;
 
 namespace DungeonRoguelike;
 
@@ -27,6 +29,8 @@ public class Game1 : Game
     private readonly Vector2 InitialCharacterPosition = new(300, 300);
     private float _zoom = 2f; // Camera zoom level
     
+    GumService GumUI => GumService.Default;
+    
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -43,6 +47,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+        GumUI.Initialize(this, DefaultVisualsVersion.V3);
         _room = _roomGenerator.GenerateRoom(30, 20);
         _movementManager = new MovementManager(_inputManager);
         _itemManager = new ItemManager();
@@ -62,6 +67,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+        GumUI.Update(gameTime);
+        
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
@@ -93,14 +100,16 @@ public class Game1 : Game
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: GetCameraTransform());
 
         _roomRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime);
-        DrawCharacter(_character.Position);
         
         _entityRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _enemyManager.Enemies);
         _entityRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _itemManager.Orbs);
         _entityRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _attackManager.Attacks);
+        
+        DrawCharacter(_character.Position);
 
         _spriteBatch.End();
 
+        GumUI.Draw();
         base.Draw(gameTime);
     }
 
