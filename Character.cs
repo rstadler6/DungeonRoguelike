@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using DungeonRoguelike.Combat;
 using Microsoft.Xna.Framework;
 
 namespace DungeonRoguelike;
@@ -5,8 +8,9 @@ namespace DungeonRoguelike;
 public class Character : Entity
 {
     private static readonly Point CollisionSize = new(28, 28);
+    private readonly IntervalTiming attackInterval = new IntervalTiming(TimeSpan.FromSeconds(1));
     
-    public string Texture => "knight_m"; // TODO change to character type, etc
+    public override string Texture => "knight_m"; // TODO change to character type, etc
 
     public Character(Vector2 initialPosition)
     {
@@ -23,5 +27,13 @@ public class Character : Entity
     public Rectangle GetCollisionBoundsAtPosition(Vector2 position)
     {
         return new Rectangle((int)position.X, (int)position.Y, CollisionSize.X, CollisionSize.Y);
+    }
+
+    public IEnumerable<Attack> GetAttack(GameTime gameTime)
+    {
+        if (attackInterval.IsReady(gameTime.TotalGameTime))
+        {
+            yield return new Attack(Position);
+        }
     }
 }

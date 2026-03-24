@@ -15,12 +15,14 @@ public class Game1 : Game
     private readonly RoomGenerator _roomGenerator = new();
     private Room _room;
     private RoomRenderer _roomRenderer;
-    private EnemyRenderer _enemyRenderer = new();
+    private EntityRenderer _entityRenderer = new();
     private readonly InputManager _inputManager = new();
     private MovementManager _movementManager;
     private readonly CollisionDetector _collisionDetector = new();
     private readonly Character _character;
-    private readonly EnemyManager _enemyManager = new();
+    private ItemManager _itemManager;
+    private EnemyManager _enemyManager;
+    private AttackManager _attackManager;
 
     private readonly Vector2 InitialCharacterPosition = new(300, 300);
     private float _zoom = 2f; // Camera zoom level
@@ -43,6 +45,9 @@ public class Game1 : Game
     {
         _room = _roomGenerator.GenerateRoom(30, 20);
         _movementManager = new MovementManager(_inputManager);
+        _itemManager = new ItemManager();
+        _enemyManager = new EnemyManager(_itemManager);
+        _attackManager = new AttackManager(_enemyManager, _character);
         base.Initialize();
     }
 
@@ -76,6 +81,7 @@ public class Game1 : Game
         _character.Move(resolvedMovement);
         
         _enemyManager.Update(_character, _room, gameTime);
+        _attackManager.Update(gameTime);
         
         base.Update(gameTime);
     }
@@ -88,7 +94,10 @@ public class Game1 : Game
 
         _roomRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime);
         DrawCharacter(_character.Position);
-        _enemyRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _enemyManager.Enemies);
+        
+        _entityRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _enemyManager.Enemies);
+        _entityRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _itemManager.Orbs);
+        _entityRenderer.Draw(_spriteBatch, _room, Point.Zero, gameTime, _attackManager.Attacks);
 
         _spriteBatch.End();
 

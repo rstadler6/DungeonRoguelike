@@ -6,6 +6,8 @@ public abstract class Entity
 {
     public Vector2 Position { get; protected set; }
 
+    public abstract string Texture { get; }
+
     protected abstract Point GetCollisionSize();
 
     private Rectangle GetCollisionBounds()

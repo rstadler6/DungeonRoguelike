@@ -6,7 +6,7 @@ public class Enemy : MovingEntity
 {
     private IEntityBehaviour behaviour = new SimpleHomingBehaviour();
     
-    public string Texture => "zombie"; // TODO change to enemy type, etc
+    public override string Texture => "zombie"; // TODO change to enemy type, etc
     public Rectangle CollisionBounds { get; } = new(20, 20, 28, 28);
     protected override float MovementSpeed => 2f;
 

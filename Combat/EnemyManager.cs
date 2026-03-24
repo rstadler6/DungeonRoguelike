@@ -8,8 +8,13 @@ namespace DungeonRoguelike.Combat;
 public class EnemyManager
 {
     private List<Enemy> enemies = new();
-    private TimeSpan lastSpawnTime = TimeSpan.Zero;
-    private readonly TimeSpan spawnInterval = TimeSpan.FromSeconds(0.5);
+    private readonly IntervalTiming spawnInterval = new(TimeSpan.FromSeconds(0.5));
+    private readonly ItemManager itemManager;
+
+    public EnemyManager(ItemManager itemManager)
+    {
+        this.itemManager = itemManager;
+    }
 
     public IReadOnlyCollection<Enemy> Enemies => enemies.AsReadOnly();
 
@@ -32,14 +37,19 @@ public class EnemyManager
     {
         return enemies.Where(e => e.CollisionBounds.Intersects(area)).ToList();
     }
+    
+    public void KillEnemy(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+        itemManager.SpawnXpOrb(enemy.Position);
+    }
 
     private void SpawnEnemy(Vector2 characterPosition, Room currentRoom, GameTime gameTime)
     {
-        if (gameTime.TotalGameTime - lastSpawnTime < spawnInterval)
+        if (!spawnInterval.IsReady(gameTime.TotalGameTime))
             return;
 
         enemies.Add(new Enemy(GetRandomSpawnPosition(characterPosition, currentRoom)));
-        lastSpawnTime = gameTime.TotalGameTime;
     }
 
     private Vector2 GetRandomSpawnPosition(Vector2 characterPosition, Room room)

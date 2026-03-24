@@ -4,10 +4,29 @@ namespace DungeonRoguelike.Combat;
 
 public class Attack : MovingEntity
 {
-    protected override float MovementSpeed => 2f;
+    public Entity? Target { get; set; }
+    
+    public Attack(Vector2 position)
+    {
+        Position = position;
+    }
+    
+    protected override float MovementSpeed => 4f;
+
+    public override string Texture => "weapon_knife";
 
     protected override Point GetCollisionSize()
     {
-        throw new System.NotImplementedException();
+        return new Point(4, 12);
+    }
+    
+    public bool TryDamage(Entity target)
+    {
+        if (IsColliding(target))
+        { 
+            return true;
+        }
+
+        return false;
     }
 }

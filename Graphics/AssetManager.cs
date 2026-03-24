@@ -76,7 +76,8 @@ public static class AssetManager
             ["wizzard_f"] = "wizzard_f_idle_anim_f0",
             ["wizzard_m"] = "wizzard_m_idle_anim_f0",
             ["wogol"] = "wogol_idle_anim_f0",
-            ["zombie"] = "zombie_anim_f10"
+            ["zombie"] = "zombie_anim_f10",
+            ["weapon_knife"] = "weapon_knife"
         };
     
     private static readonly IReadOnlyDictionary<string, string> BlueCoinRegionNames =
