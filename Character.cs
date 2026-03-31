@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using DungeonRoguelike.Combat;
+using DungeonRoguelike.Progression;
 using Microsoft.Xna.Framework;
 
 namespace DungeonRoguelike;
 
 public class Character : Entity
 {
+    public XpLevel XpLevel { get; } = new();
+    
     private static readonly Point CollisionSize = new(28, 28);
     private readonly IntervalTiming attackInterval = new IntervalTiming(TimeSpan.FromSeconds(1));
     

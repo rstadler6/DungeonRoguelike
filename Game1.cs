@@ -5,6 +5,8 @@ using DungeonRoguelike.Combat;
 using DungeonRoguelike.Generation;
 using DungeonRoguelike.Graphics;
 using DungeonRoguelike.Input;
+using DungeonRoguelike.UI;
+using DungeonRoguelike.UI.ViewModel;
 using Gum.Forms;
 using MonoGameGum;
 
@@ -25,6 +27,7 @@ public class Game1 : Game
     private ItemManager _itemManager;
     private EnemyManager _enemyManager;
     private AttackManager _attackManager;
+    private UiManager _uiManager = new();
 
     private readonly Vector2 InitialCharacterPosition = new(300, 300);
     private float _zoom = 2f; // Camera zoom level
@@ -50,9 +53,10 @@ public class Game1 : Game
         GumUI.Initialize(this, DefaultVisualsVersion.V3);
         _room = _roomGenerator.GenerateRoom(30, 20);
         _movementManager = new MovementManager(_inputManager);
-        _itemManager = new ItemManager();
+        _itemManager = new ItemManager(_character);
         _enemyManager = new EnemyManager(_itemManager);
         _attackManager = new AttackManager(_enemyManager, _character);
+        _uiManager.Initialize(new CharacterViewModel(_character.XpLevel), _character.XpLevel);
         base.Initialize();
     }
 
@@ -89,6 +93,7 @@ public class Game1 : Game
         
         _enemyManager.Update(_character, _room, gameTime);
         _attackManager.Update(gameTime);
+        _itemManager.Update(gameTime);
         
         base.Update(gameTime);
     }
