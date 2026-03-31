@@ -56,7 +56,7 @@ public class Game1 : Game
         _itemManager = new ItemManager(_character);
         _enemyManager = new EnemyManager(_itemManager);
         _attackManager = new AttackManager(_enemyManager, _character);
-        _uiManager.Initialize(new CharacterViewModel(_character.XpLevel), _character.XpLevel);
+        _uiManager.Initialize(new CharacterViewModel(_character.XpLevel));
         base.Initialize();
     }
 

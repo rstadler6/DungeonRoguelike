@@ -15,7 +15,7 @@ public class XpBar
     public ContainerRuntime BarContainer { get; }
     public ColoredRectangleRuntime Bar { get; }
     
-    public XpBar(CharacterViewModel characterViewModel, XpLevel xpLevel)
+    public XpBar(CharacterViewModel characterViewModel)
     {
         Background = new ColoredRectangleRuntime
         {
@@ -46,9 +46,7 @@ public class XpBar
         BarContainer.Dock(Dock.Fill);
         Background.AddToRoot();
         
-        //Bar.BindingContext = characterViewModel;
-        //Bar.SetBinding(nameof(Bar.Width), nameof(characterViewModel.ExperienceToNextLevel));
-        Bar.BindingContext = xpLevel;
-        Bar.SetBinding(nameof(Bar.Width), nameof(xpLevel.ExperienceToNextLevel));
+        Bar.BindingContext = characterViewModel;
+        Bar.SetBinding(nameof(Bar.Width), nameof(CharacterViewModel.ExperienceToNextLevel));
     }
 }

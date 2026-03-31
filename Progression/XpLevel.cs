@@ -1,36 +1,24 @@
-using Gum.Mvvm;
+using System;
 
 namespace DungeonRoguelike.Progression;
 
-public class XpLevel : ViewModel
-{ 
+public class XpLevel
+{
     public int Level { get; private set; } = 1;
     public int Experience { get; private set; }
+    public int ExperiencePercent => Experience * 100 / ExperienceNeeded();
 
-    public int ExperienceToNextLevel { get => Get<int>(); set => Set(value); }
+    public event Action? Changed;
 
-    public XpLevel()
-    {
-        Experience = 0;
-        ExperienceToNextLevel = 0;
-    }
-    
     public void CollectExperience(int amount)
     {
         Experience += amount;
-        ExperienceToNextLevel = Experience * 100 / ExperienceNeeded();
-        CheckLevelUp();
-    }
-
-    private void CheckLevelUp()
-    {
-        if (Experience >= ExperienceNeeded())
+        while (Experience >= ExperienceNeeded())
         {
+            Experience -= ExperienceNeeded();
             Level++;
-            Experience = 0;
-            ExperienceToNextLevel = 0;
         }
-        // TODO level up action
+        Changed?.Invoke();
     }
 
     private int ExperienceNeeded() => (int)(100 + Level * 0.1 * 100);

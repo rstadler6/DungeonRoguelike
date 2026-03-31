@@ -7,8 +7,8 @@ public class UiManager
 {
     public XpBar XpBar { get; set; }
     
-    public void Initialize(CharacterViewModel characterViewModel, XpLevel xpLevel)
+    public void Initialize(CharacterViewModel characterViewModel)
     {
-        XpBar = new XpBar(characterViewModel, xpLevel);
+        XpBar = new XpBar(characterViewModel);
     }
 }
