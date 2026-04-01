@@ -54,7 +54,7 @@ public class Game1 : Game
         _room = _roomGenerator.GenerateRoom(30, 20);
         _movementManager = new MovementManager(_inputManager);
         _itemManager = new ItemManager(_character);
-        _enemyManager = new EnemyManager(_itemManager);
+        _enemyManager = new EnemyManager();
         _attackManager = new AttackManager(_enemyManager, _character);
         _uiManager.Initialize(new CharacterViewModel(_character.XpLevel));
         base.Initialize();
