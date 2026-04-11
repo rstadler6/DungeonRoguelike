@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using DungeonRoguelike.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DungeonRoguelike.Graphics;
+namespace DungeonRoguelike.Infrastructure;
 
 public static class AssetManager
 {
@@ -79,7 +80,7 @@ public static class AssetManager
             ["zombie"] = "zombie_anim_f10",
             ["weapon_knife"] = "weapon_knife"
         };
-    
+
     private static readonly IReadOnlyDictionary<string, string> BlueCoinRegionNames =
         new Dictionary<string, string>
         {
@@ -100,7 +101,7 @@ public static class AssetManager
         LoadAtlasRegions(wallsAtlas, WallRegionNames);
         LoadAtlasRegions(dungeonsIIAtlas, CharacterEnemyIdleRegionNames);
         LoadAtlasRegions(blueCoinAtlas, BlueCoinRegionNames);
-        
+
         _tileRegions[TileType.Door] = floorsAtlas.GetRegion("floor");
 
         foreach (KeyValuePair<object, TextureRegion> pair in _tileRegions)
@@ -109,10 +110,8 @@ public static class AssetManager
         }
     }
 
-    public static Texture2D GetTexture(TileType type) => _tileTextures[type];
-
     public static TextureRegion GetRegion(TileType type) => _tileRegions[type];
-    
+
     public static TextureRegion GetRegion(string type) => _tileRegions[type];
 
     private static void LoadAtlasRegions(TextureAtlas atlas, IReadOnlyDictionary<TileType, string> regionMap)
@@ -122,7 +121,7 @@ public static class AssetManager
             _tileRegions[pair.Key] = atlas.GetRegion(pair.Value);
         }
     }
-    
+
     private static void LoadAtlasRegions(TextureAtlas atlas, IReadOnlyDictionary<string, string> regionMap)
     {
         foreach (KeyValuePair<string, string> pair in regionMap)

@@ -1,2 +1,4 @@
-﻿using var game = new DungeonRoguelike.Game1();
+﻿using DungeonRoguelike.Presentation;
+
+using var game = new SoulGrinderGame();
 game.Run();

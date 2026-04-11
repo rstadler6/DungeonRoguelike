@@ -1,6 +1,7 @@
+using DungeonRoguelike.Input;
 using Microsoft.Xna.Framework;
 
-namespace DungeonRoguelike.Input;
+namespace DungeonRoguelike.Presentation;
 
 public class InputManager
 {
@@ -31,5 +32,21 @@ public class InputManager
     {
         Keyboard.Update();
         Mouse.Update();
+    }
+    
+    public Vector2 GetMovementDirection()
+    {
+        var direction = Vector2.Zero;
+        
+        if (Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.W))
+            direction.Y -= 1;
+        if (Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A))
+            direction.X -= 1;
+        if (Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.S))
+            direction.Y += 1;
+        if (Keyboard.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D))
+            direction.X += 1;
+
+        return direction;
     }
 }

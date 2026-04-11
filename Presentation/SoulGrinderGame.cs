@@ -1,18 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using DungeonRoguelike.Combat;
+﻿using DungeonRoguelike.Combat;
 using DungeonRoguelike.Generation;
 using DungeonRoguelike.Graphics;
+using DungeonRoguelike.Infrastructure;
 using DungeonRoguelike.Input;
 using DungeonRoguelike.UI;
 using DungeonRoguelike.UI.ViewModel;
 using Gum.Forms;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGameGum;
 
-namespace DungeonRoguelike;
+namespace DungeonRoguelike.Presentation;
 
-public class Game1 : Game
+public class SoulGrinderGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -30,11 +31,11 @@ public class Game1 : Game
     private UiManager _uiManager = new();
 
     private readonly Vector2 InitialCharacterPosition = new(300, 300);
-    private float _zoom = 2f; // Camera zoom level
+    private float _zoom = 2f; 
     
     GumService GumUI => GumService.Default;
     
-    public Game1()
+    public SoulGrinderGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -65,7 +66,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         AssetManager.LoadContent(Content);
-        
+
         _roomRenderer = new RoomRenderer(new Point(32, 32));
     }
 
