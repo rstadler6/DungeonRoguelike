@@ -18,7 +18,6 @@
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*"/>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Domain\" />
       <Folder Include="UI\Components\" />
     </ItemGroup>
 </Project>

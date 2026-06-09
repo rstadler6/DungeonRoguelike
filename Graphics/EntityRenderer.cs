@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using DungeonRoguelike.Combat;
-using DungeonRoguelike.Infrastructure;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
