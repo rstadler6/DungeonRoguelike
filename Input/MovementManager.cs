@@ -17,13 +17,13 @@ public class MovementManager
     {
         Vector2 direction = Vector2.Zero;
 
-        if (_inputManager.Keyboard.IsKeyDown(Keys.I))
+        if (_inputManager.Keyboard.IsKeyDown(Keys.W))
             direction.Y -= MovementSpeed;
-        if (_inputManager.Keyboard.IsKeyDown(Keys.K))
+        if (_inputManager.Keyboard.IsKeyDown(Keys.S))
             direction.Y += MovementSpeed;
-        if (_inputManager.Keyboard.IsKeyDown(Keys.J))
+        if (_inputManager.Keyboard.IsKeyDown(Keys.A))
             direction.X -= MovementSpeed;
-        if (_inputManager.Keyboard.IsKeyDown(Keys.L))
+        if (_inputManager.Keyboard.IsKeyDown(Keys.D))
             direction.X += MovementSpeed;
 
         return direction;
